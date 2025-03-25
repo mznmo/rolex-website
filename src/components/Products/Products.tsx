@@ -1,7 +1,7 @@
 import watches from "../../data.json";
 
 type ProductsProps = {
-  filterType: string; // Declaring the type of filterType as string
+  filterType: string; // declaring the type of filterType as string
 };
 
 export default function Products({ filterType }: ProductsProps) {

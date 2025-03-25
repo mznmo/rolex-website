@@ -5,6 +5,7 @@ export default function Filterbar() {
   const [filter, setFilter] = useState<string>("All"); // initialize the filter state as a string
 
   function handleFilter(event: React.MouseEvent<HTMLButtonElement>) {
+    //identify that the mouseevent is coming from a button
     setFilter(event.currentTarget.id); // use `event.currentTarget.id` to get the clicked element's id
   }
 
