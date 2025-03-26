@@ -2,41 +2,41 @@
   {
     "id": 1,
     "name": "Datejust",
-    "image": "/datejust.jpeg",
+    "image": ["/datejust.jpeg", "/datejust-2.webp"],
     "description": "A watch for the dates to remember",
-    "price": "$10,000",
+    "price": 10000,
     "category": "Classic"
   },
   {
     "id": 2,
     "name": "Submariner",
-    "image": "/submariner.jpeg",
+    "image": ["/submariner.jpeg", "/submariner-2.webp"],
     "description": "The supreme diver's watch",
-    "price": "$15,000",
+    "price": 15000,
     "category": "Professional"
   },
   {
     "id": 3,
     "name": "GMT-Master II",
-    "image": "/gmt-master.jpeg",
+    "image": ["/gmt-master.jpeg", "/gmt-master2.webp"],
     "description": "Two time-zones, two-colours, uniquely iconic",
-    "price": "$8,000",
+    "price": 8000,
     "category": "Professional"
   },
   {
     "id": 4,
     "name": "Day-Date",
-    "image": "/day-date.jpeg",
+    "image": ["/day-date.jpeg", "/day-date2.webp"],
     "description": "A witness to some of the History's most pivotal moments",
-    "price": "$8,000",
+    "price": 8000,
     "category": "Classic"
   },
   {
     "id": 5,
     "name": "Deepsea",
-    "image": "/deepsea.jpeg",
+    "image": ["/deepsea.jpeg", "/deepsea-2.webp"],
     "description": "Extreme diver's watch",
-    "price": "$8,000",
+    "price": 8000,
     "category": "Classic"
   }
 ]
