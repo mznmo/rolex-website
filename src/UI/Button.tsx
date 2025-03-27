@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 type ButtonProps = {
-  text: string; // define the type of props as an object with a 'text' field
+  text: string;
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
   to?: string;
 };

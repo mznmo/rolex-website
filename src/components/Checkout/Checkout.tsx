@@ -1,27 +1,97 @@
-import Button from "../../UI/Button";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../Navbars/Navbar";
+import { useCart } from "../../store/CartContext";
 
 export default function Checkout() {
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const { clearCart, cart } = useCart();
+
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const addressRef = useRef<HTMLInputElement>(null);
+  const phoneNumberRef = useRef<HTMLInputElement>(null);
+
+  function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+
+    const firstName = firstNameRef.current?.value.trim() || "";
+    const lastName = lastNameRef.current?.value.trim() || "";
+    const address = addressRef.current?.value.trim() || "";
+    const phoneNumber = phoneNumberRef.current?.value.trim() || "";
+
+    if (!firstName || !lastName || !address || !phoneNumber) {
+      return setError(true);
+    }
+    clearCart();
+    const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+
+    const newOrder = {
+      id: Date.now(),
+      product: cart.map((item) => item.name),
+      address,
+      phoneNumber,
+      status: "Pending",
+    };
+    localStorage.setItem(
+      "orders",
+      JSON.stringify([...existingOrders, newOrder])
+    );
+    navigate("/checkout-completed");
+  }
+
   return (
     <>
-      <form>
-        <label>
-          First Name:
-          <input type="text" name="firstName" required />
-        </label>
-        <label>
-          Last Name:
-          <input type="text" name="lastName" required />
-        </label>
-        <label>
-          Address:
-          <input type="text" name="address" required />
-        </label>
-        <label>
-          Phone Number:
-          <input type="tel" name="phoneNumber" required />
-        </label>
-        <Button text="Checkout" />
-      </form>
+      <Navbar />
+      <div className="flex items-center justify-center h-screen">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center p-8 w-96 border rounded-2xl shadow-lg space-y-4"
+        >
+          <div className="flex flex-col w-full text-[#145C36] font-semibold">
+            <label>First Name:</label>
+            <input
+              className="border p-2 rounded font-thin"
+              type="text"
+              ref={firstNameRef}
+            />
+
+            <label>Last Name:</label>
+            <input
+              className="border p-2 rounded font-thin"
+              type="text"
+              ref={lastNameRef}
+            />
+
+            <label>Address:</label>
+            <input
+              className="border p-2 rounded font-thin"
+              type="text"
+              ref={addressRef}
+            />
+
+            <label>Phone Number:</label>
+            <input
+              className="border p-2 rounded font-thin"
+              type="number"
+              ref={phoneNumberRef}
+            />
+          </div>
+          <button
+            className="mt-7 rounded p-2 px-5 transition-colors duration-300 hover:text-[#1e704d] text-sm text-white"
+            style={{
+              background: "linear-gradient(to right, #0A3C1F, #145C36)",
+            }}
+            type="submit"
+          >
+            Checkout
+          </button>
+          {error && (
+            <p className="text-red-500 text-xs">All fields are required.</p>
+          )}
+        </form>
+      </div>
     </>
   );
 }
