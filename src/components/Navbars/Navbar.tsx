@@ -2,6 +2,8 @@ import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import watches from "../../data.json";
+import { useCart } from "../../store/CartContext";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   const token = localStorage.getItem("token");
@@ -10,8 +12,12 @@ export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [search, setSearch] = useState<string>("");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const { cart, clearCart } = useCart();
+
+  const quantity = cart.reduce((total, item) => total + item.quantity, 0);
 
   function handleLogout() {
+    clearCart();
     localStorage.removeItem("token");
     localStorage.removeItem("orders");
     navigate("/");
@@ -63,7 +69,7 @@ export default function Navbar() {
                   to="/cart"
                   className="transition-colors duration-300 hover:text-[#1e704d]"
                 >
-                  Cart
+                  Cart {quantity >= 1 ? `(${quantity})` : ""}
                 </Link>
                 |
                 <button
@@ -144,7 +150,12 @@ export default function Navbar() {
               </div>
               <div className="flex text-white space-x-6">
                 {watches.map((watch) => (
-                  <div key={watch.id} className="w-1/2">
+                  <motion.div
+                    key={watch.id}
+                    className="w-1/2"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <img
                       src={watch.image[0]}
                       alt={watch.name}
@@ -152,7 +163,7 @@ export default function Navbar() {
                       onClick={() => navigate(`/watch/${watch.id}`)}
                     />
                     <p className="text-center text-white mt-2">{watch.name}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>

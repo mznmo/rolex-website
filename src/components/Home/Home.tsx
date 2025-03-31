@@ -1,5 +1,6 @@
-import background from "../../assets/Home_background2.jpg";
+import { Link } from "react-router-dom";
 import Navbar from "../Navbars/Navbar";
+import homeVideo from "../../assets/home_video.mp4";
 
 export default function HomePage() {
   return (
@@ -10,7 +11,13 @@ export default function HomePage() {
           <p className="font-thin text-xl">THE COLLECTION</p>
           <p className="text-4xl font-extrabold">Rolex watches</p>
         </div>
-        <img src={background} className="w-full h-8/12 object-cover" />
+        <video
+          src={homeVideo}
+          className="w-full h-8/12 object-cover"
+          autoPlay
+          loop
+          muted
+        />
         <div className="flex flex-col items-start gap-x-96 p-24 sm:flex-row">
           <p className="text-5xl font-bold" style={{ color: "#145C36" }}>
             Explore the Rolex <br /> collection
@@ -22,9 +29,12 @@ export default function HomePage() {
               precision timepieces, from Professional to Classic models to suit
               any wrist.
             </p>
-            <button className="mt-10 font-medium text-start text-sm transition-colors duration-300 hover:text-[#1e704d]">
+            <Link
+              to="/productsList"
+              className="mt-10 font-medium text-start text-sm transition-colors duration-300 hover:text-[#1e704d]"
+            >
               Find your Rolex &rarr;
-            </button>
+            </Link>
           </div>
         </div>
       </div>

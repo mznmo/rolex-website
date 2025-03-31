@@ -17,6 +17,7 @@ import CartProvider from "./store/CartContext";
 import Checkout from "./components/Checkout/Checkout";
 import CheckoutCompleted from "./components/Checkout/CheckoutCompleted";
 import PreviousOrders from "./components/Orders/Orders";
+import ProductsList from "./components/Products/ProductsList";
 
 const routerDefinitions = createRoutesFromElements(
   <Route errorElement={<Error />}>
@@ -47,6 +48,7 @@ const routerDefinitions = createRoutesFromElements(
       element={<ProtectedComponents element={<PreviousOrders />} />}
     ></Route>
     <Route path="/watch/:id" element={<ProductDetails />}></Route>
+    <Route path="/productsList" element={<ProductsList />} />
   </Route>
 );
 

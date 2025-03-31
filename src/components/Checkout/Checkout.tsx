@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbars/Navbar";
 import { useCart } from "../../store/CartContext";
+import Input from "../../UI/Input";
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -44,39 +45,24 @@ export default function Checkout() {
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <h1 className="text-3xl mb-6">Checkout</h1>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center p-8 w-96 border rounded-2xl shadow-lg space-y-4"
+          className="flex flex-col items-center p-8 w-96 shadow-lg space-y-4 bg-white rounded-lg"
         >
           <div className="flex flex-col w-full text-[#145C36] font-semibold">
             <label>First Name:</label>
-            <input
-              className="border p-2 rounded font-thin"
-              type="text"
-              ref={firstNameRef}
-            />
+            <Input ref={firstNameRef} />
 
             <label>Last Name:</label>
-            <input
-              className="border p-2 rounded font-thin"
-              type="text"
-              ref={lastNameRef}
-            />
+            <Input ref={lastNameRef} />
 
             <label>Address:</label>
-            <input
-              className="border p-2 rounded font-thin"
-              type="text"
-              ref={addressRef}
-            />
+            <Input ref={addressRef} />
 
             <label>Phone Number:</label>
-            <input
-              className="border p-2 rounded font-thin"
-              type="number"
-              ref={phoneNumberRef}
-            />
+            <Input type="number" ref={phoneNumberRef} />
           </div>
           <button
             className="mt-7 rounded p-2 px-5 transition-colors duration-300 hover:text-[#1e704d] text-sm text-white"

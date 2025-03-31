@@ -32,21 +32,22 @@ export default function PreviousOrders() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
         <h1 className="text-3xl mb-6">Previous Orders</h1>
-        <div className="w-1/2 border p-6 rounded-2xl shadow-lg">
+        <div className="w-1/2 p-8 shadow-lg bg-white rounded-lg">
           {orders.length === 0 ? (
             <p className="text-center">No previous orders.</p>
           ) : (
             orders.map((order) => (
               <div
                 key={order.id}
-                className="border-b py-4 flex justify-between items-center"
+                className="border-b border-gray-300 py-4 flex justify-between items-center"
               >
                 <div>
-                  <h2 className="font-bold">
-                    {order.product.join(", ")} <br />
-                  </h2>
+                  <h2 className="font-bold">{order.product.join(", ")}</h2>
+                  <p className="font-thin text-sm">
+                    {new Date(order.id).toLocaleDateString()}
+                  </p>
                   <p
                     className={`text-sm font-semibold ${
                       order.status === "Delivered"
