@@ -11,7 +11,7 @@ type CartItem = {
 
 type CartContextType = {
   cart: CartItem[];
-  addToCart: (id: number) => void;
+  addToCart: (id: number, quantity: number) => void;
   removeFromCart: (id: number) => void;
   clearCart: () => void;
 };
@@ -33,19 +33,22 @@ type CartProviderProps = {
 export default function CartProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (id: number) => {
-    const existingItem = cart.find((item) => item.id === id);
+  const addToCart = (id: number, quantity = 1) => {
+    const existingItem = cart.find((item) => item.id === id); //checking if product exists in cart
 
     if (existingItem) {
+      //if product exists increment quantity
       setCart(
         cart.map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
         )
       );
     } else {
-      const newItem = watches.find((watch) => watch.id === id);
+      const newItem = watches.find((watch) => watch.id === id); //if product doesnt exist in cart
       if (newItem) {
-        setCart([...cart, { ...newItem, price: newItem.price, quantity: 1 }]);
+        setCart([...cart, { ...newItem, quantity }]); //load the cart + the new product and quantity
       }
     }
   };
@@ -53,12 +56,15 @@ export default function CartProvider({ children }: CartProviderProps) {
   const removeFromCart = (id: number) => {
     const cartItem = cart.find((item) => item.id === id);
     if (cartItem) {
+      //if product is in cart
       if (cartItem.quantity === 1) {
-        setCart(cart.filter((item) => item.id !== id));
+        //if quantity is equal to 1
+        setCart(cart.filter((item) => item.id !== id)); //filtering the cart to remove the product
       } else {
         setCart(
-          cart.map((item) =>
-            item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+          cart.map(
+            (item) =>
+              item.id === id ? { ...item, quantity: item.quantity - 1 } : item //else loading the item + decrementing the quantity
           )
         );
       }
@@ -66,7 +72,7 @@ export default function CartProvider({ children }: CartProviderProps) {
   };
 
   const clearCart = () => {
-    setCart([]);
+    setCart([]); //setting the cart to an empty array
   };
 
   return (

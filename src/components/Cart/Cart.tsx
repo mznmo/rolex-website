@@ -36,7 +36,11 @@ export default function Cart() {
                     </span>
                   </div>
                 </div>
-                <Button text="Remove" onClick={() => removeFromCart(item.id)} />
+                <Button
+                  text="Remove"
+                  onClick={() => removeFromCart(item.id)}
+                  to="/cart"
+                />
               </div>
             ))}
           </div>

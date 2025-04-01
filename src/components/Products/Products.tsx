@@ -55,7 +55,7 @@ export default function Products({ filterType }: ProductsProps) {
               <Button
                 text="Buy now"
                 {...(token
-                  ? { onClick: () => addToCart(watch.id) }
+                  ? { onClick: () => addToCart(watch.id, 1) }
                   : { to: "/login" })}
               />
             </motion.div>

@@ -81,10 +81,10 @@ export default function Navbar() {
               </div>
             ) : (
               <Link
-                to="/signup"
+                to="/login"
                 className="transition-colors duration-300 hover:text-[#1e704d]"
               >
-                Sign up
+                Login
               </Link>
             )}
           </li>
