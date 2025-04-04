@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
-.nav-link {
-  @apply transition-colors duration-300 hover:text-[#0A3B29];
+::selection {
+  background-color: #145c36;
+  color: white;
 }
