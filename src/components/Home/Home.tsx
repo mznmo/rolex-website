@@ -19,6 +19,7 @@ export default function HomePage() {
           autoPlay
           loop
           muted
+          playsInline
         />
         <div className="relative flex flex-col items-center px-4 py-12 sm:px-8 md:px-12 lg:px-24 gap-8 sm:gap-12 md:gap-16 lg:flex-row lg:justify-between">
           <p
