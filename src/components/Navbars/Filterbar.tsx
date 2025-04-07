@@ -49,7 +49,9 @@ export default function Filterbar() {
             >
               Professional
               {filter === "Professional" && (
-                <span className="absolute right-24 text-[#1e704d]">•</span>
+                <span className="absolute right-20 sm:right-24 text-[#1e704d]">
+                  •
+                </span>
               )}
             </button>
           </li>
