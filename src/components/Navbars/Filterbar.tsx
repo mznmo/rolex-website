@@ -12,7 +12,7 @@ export default function Filterbar() {
   return (
     <>
       <nav className="flex items-center justify-center h-full">
-        <ul className="flex flex-row gap-9 mt-24 font-semibold">
+        <ul className="flex flex-row flex-wrap justify-center gap-4 sm:gap-6 md:gap-9 mt-12 sm:mt-16 md:mt-24 font-semibold text-sm sm:text-base">
           <li>
             <button
               id="All"
@@ -21,7 +21,7 @@ export default function Filterbar() {
             >
               All
               {filter === "All" && (
-                <span className="absolute right-5 text-[#1e704d]">•</span>
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#1e704d]"></span>
               )}
             </button>
           </li>
@@ -35,7 +35,7 @@ export default function Filterbar() {
             >
               Classic
               {filter === "Classic" && (
-                <span className="absolute right-14 text-[#1e704d]">•</span>
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#1e704d]"></span>
               )}
             </button>
           </li>
@@ -49,9 +49,7 @@ export default function Filterbar() {
             >
               Professional
               {filter === "Professional" && (
-                <span className="absolute right-20 sm:right-24 text-[#1e704d]">
-                  •
-                </span>
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#1e704d]"></span>
               )}
             </button>
           </li>
