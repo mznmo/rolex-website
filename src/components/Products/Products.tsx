@@ -34,19 +34,23 @@ export default function Products({ filterType }: ProductsProps) {
             <Link to={`/watch/${watch.id}`}>
               <img src={watch.image[0]} alt={watch.name} />
               <motion.div
-                className="absolute bottom-28 left-24 p-4 text-white"
+                className="absolute bottom-2/12 left-1/12 p-4 text-white"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                <h2 className="font-bold mb-5 text-4xl">{watch.name}</h2>
-                <p className="font-thin text-xl">{watch.description[0]}</p>
+                <h2 className="font-bold mb-5 text-lg sm:text-4xl">
+                  {watch.name}
+                </h2>
+                <p className="font-thin text-normal sm:text-xl">
+                  {watch.description[0]}
+                </p>
                 <p className="font-thin">${watch.price.toLocaleString()}</p>
               </motion.div>
             </Link>
             <motion.div
-              className="absolute bottom-14 left-24 p-4"
+              className="absolute bottom-0.5 sm:bottom-1/12 left-1/12 p-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}

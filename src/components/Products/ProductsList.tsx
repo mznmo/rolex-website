@@ -12,7 +12,7 @@ export default function ProductsList() {
           <p className="font-semibold text-2xl">ROLEX WATCHES</p>
           <p className="font-extrabold text-6xl">All Models</p>
         </div>
-        <div className="grid grid-cols-3 gap-8 w-6/7">
+        <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 w-6/7">
           {watches.map((product) => (
             <Link to={`/watch/${product.id}`} key={product.id}>
               <motion.div

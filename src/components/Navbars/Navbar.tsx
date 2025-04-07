@@ -43,17 +43,24 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="w-full h-28 flex flex-row items-center px-28 text-white top-0 z-50 sticky transition-all duration-300 bg-gradient-to-r from-[#0A3C1F] to-[#145C36]">
-        <button
-          className="transition-colors duration-300 hover:text-[#1e704d]"
-          onClick={handleToggleMenu}
+      <nav className="w-full h-28 flex flex-row items-center justify-between px-4 sm:px-8 md:px-28 text-white top-0 z-50 sticky transition-all duration-300 bg-gradient-to-r from-[#0A3C1F] to-[#145C36]">
+        <div className="flex items-center">
+          <button
+            className="transition-colors duration-300 hover:text-[#1e704d] text-lg mr-4"
+            onClick={handleToggleMenu}
+          >
+            ☰ Menu
+          </button>
+        </div>
+
+        <Link
+          to="/"
+          className="absolute left-1/2 transform -translate-x-1/2 z-10"
         >
-          ☰ Menu
-        </button>
-        <Link to="/" className="absolute left-1/2 transform -translate-x-1/2">
-          <img src={logo} className="h-16" />
+          <img src={logo} className="h-16" alt="Rolex Logo" />
         </Link>
-        <ul className="flex flex-row gap-9 ml-auto">
+
+        <ul className="hidden md:flex flex-row gap-9 items-center">
           <li>
             <button
               className="transition-colors duration-300 hover:text-[#1e704d]"
@@ -148,21 +155,23 @@ export default function Navbar() {
               <div className="text-white mb-4 text-xl font-bold">
                 Rolex Watches
               </div>
-              <div className="flex text-white space-x-6">
+              <div className="flex overflow-x-auto pb-4 w-full gap-4 snap-x snap-mandatory scrollbar-hide">
                 {watches.map((watch) => (
                   <motion.div
                     key={watch.id}
-                    className="w-1/2"
-                    whileHover={{ scale: 1.1 }}
+                    className="flex-none w-64 sm:w-72 snap-center"
+                    whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >
                     <img
                       src={watch.image[0]}
                       alt={watch.name}
-                      className="w-full h-auto rounded-lg"
+                      className="w-full h-auto rounded-lg object-cover aspect-square"
                       onClick={() => navigate(`/watch/${watch.id}`)}
                     />
-                    <p className="text-center text-white mt-2">{watch.name}</p>
+                    <p className="text-center text-white mt-2 text-sm sm:text-base">
+                      {watch.name}
+                    </p>
                   </motion.div>
                 ))}
               </div>
