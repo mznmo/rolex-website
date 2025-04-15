@@ -9,7 +9,6 @@ type ProductsProps = {
 };
 
 export default function Products({ filterType }: ProductsProps) {
-  const token = localStorage.getItem("token");
   console.log(filterType);
   const { addToCart } = useCart(); // using the custom hook to get the addToCart function from CartContext
 
@@ -56,12 +55,7 @@ export default function Products({ filterType }: ProductsProps) {
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <Button
-                text="Buy now"
-                {...(token
-                  ? { onClick: () => addToCart(watch.id, 1) }
-                  : { to: "/login" })}
-              />
+              <Button text="Buy now" onClick={() => addToCart(watch.id, 1)} />
             </motion.div>
           </li>
         </motion.ul>
