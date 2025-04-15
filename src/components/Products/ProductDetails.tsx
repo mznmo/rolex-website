@@ -10,6 +10,7 @@ export default function ProductDetails() {
   const { id } = useParams();
   const filteredWatch = watches.find((watch) => watch.id === Number(id));
   const { addToCart } = useCart();
+  const token = localStorage.getItem("token");
   const [quantity, setQuantity] = useState<number>(1);
 
   function increaseQuantity() {
@@ -58,7 +59,12 @@ export default function ProductDetails() {
             <motion.div className="flex" whileTap={{ scale: 1.01 }}>
               <Button
                 text="Add to cart"
-                onClick={() => addToCart(filteredWatch.id, quantity)}
+                {...(token
+                  ? {
+                      onClick: () => addToCart(filteredWatch.id, quantity),
+                      to: `/watch/${id}`,
+                    }
+                  : { to: "/login" })}
               />
             </motion.div>
           </div>
