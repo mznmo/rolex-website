@@ -70,7 +70,7 @@ export default function Navbar() {
             </button>
           </li>
           <li>
-            {token ? (
+            {token && token !== "guest" ? (
               <div className="flex flex-row gap-6 items-center">
                 <Link
                   to="/cart"
@@ -86,13 +86,31 @@ export default function Navbar() {
                   Logout
                 </button>
               </div>
+            ) : token === "guest" ? (
+              <div className="flex flex-row gap-6 items-center">
+                <Link
+                  to="/cart"
+                  className="transition-colors duration-300 hover:text-[#1e704d]"
+                >
+                  Cart {quantity >= 1 ? `(${quantity})` : ""}
+                </Link>
+                <Link
+                  to="/login"
+                  className="transition-colors duration-300 hover:text-[#1e704d]"
+                >
+                  Login
+                </Link>
+                |<span className="font-thin">Guest</span>
+              </div>
             ) : (
-              <Link
-                to="/login"
-                className="transition-colors duration-300 hover:text-[#1e704d]"
-              >
-                Login
-              </Link>
+              !token && (
+                <Link
+                  to="/login"
+                  className="transition-colors duration-300 hover:text-[#1e704d]"
+                >
+                  Login
+                </Link>
+              )
             )}
           </li>
         </ul>

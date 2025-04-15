@@ -1,12 +1,15 @@
 import Navbar from "../Navbars/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import { useCart } from "../../store/CartContext";
 
 export default function Login() {
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const guestToken = localStorage.getItem("token");
+  const { clearCart } = useCart();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,8 +17,8 @@ export default function Login() {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
-    if (!email || !password) {
-      alert("Please fill out all fields.");
+    if (!email || (!password && guestToken !== "guest")) {
+      setError("Please fill out all fields.");
       return;
     }
 
@@ -36,6 +39,7 @@ export default function Login() {
       setError(data.message);
     } else if (response.ok) {
       localStorage.setItem("token", data.token);
+      clearCart();
       console.log("OK OK OK OK");
       navigate("/");
     } else {
@@ -43,6 +47,12 @@ export default function Login() {
       setError(data.message);
     }
   };
+
+  function handleGuest() {
+    localStorage.setItem("token", "guest");
+    navigate("/");
+  }
+
   return (
     <>
       <Navbar />
@@ -77,6 +87,12 @@ export default function Login() {
             }}
           >
             Login
+          </button>
+          <button
+            onClick={handleGuest}
+            className="pt-5 font-thin text-sm transition-colors duration-300 hover:text-[#1e704d]"
+          >
+            Continue as a Guest
           </button>
           <p className="mt-6">
             Don't have an account?{" "}
