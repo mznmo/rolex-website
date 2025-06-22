@@ -15,5 +15,4 @@ A luxury watch store website inspired by the design and aesthetics of the Rolex 
 - **Frontend**: React, TailwindCSS, Framer Motion
 - **State Management**: React Context API
 - **Routing**: React Router
-- **Video Integration**: HTML5 Video Tag
 - **Data**: Static JSON data for watches
