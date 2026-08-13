@@ -19,6 +19,19 @@ const createProduct = async (req, res, next) => {
   }
 };
 
+const getFilteredProducts = async (req, res, next) => {
+  try {
+    const { category } = req.query;
+    const products =
+      !category || category === "All"
+        ? await Product.find()
+        : await Product.find({ category });
+    res.status(200).json(products);
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const getProducts = async (req, res, next) => {
   try {
     const products = await Product.find();
@@ -28,4 +41,4 @@ const getProducts = async (req, res, next) => {
   }
 };
 
-module.exports = { getProducts, createProduct };
+module.exports = { getProducts, createProduct, getFilteredProducts };

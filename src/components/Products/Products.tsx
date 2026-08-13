@@ -2,8 +2,16 @@ import { Link } from "react-router-dom";
 import Button from "../../UI/Button";
 import { useCart } from "../../store/CartContext";
 import { motion } from "framer-motion";
-import { useProducts } from "../../hooks/productHook";
+import { useEffect, useState } from "react";
 
+type Product = {
+  id: number;
+  name: string;
+  image: string[];
+  description: string[];
+  price: number;
+  category: string;
+};
 type ProductsProps = {
   filterType: string;
 };
@@ -11,17 +19,28 @@ type ProductsProps = {
 export default function Products({ filterType }: ProductsProps) {
   const token = localStorage.getItem("token");
   const { addToCart } = useCart();
-  const products = useProducts();
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const filteredWatches = filterType
-    ? filterType === "All"
-      ? products
-      : products.filter((watch) => watch.category === filterType)
-    : products;
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/products/filtered-products?category=${filterType}`,
+        );
+        const data = await response.json();
+        if (response.ok && Array.isArray(data)) {
+          setProducts(data);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, [filterType]);
 
   return (
     <motion.div className="grid mt-6" viewport={{ once: true }}>
-      {filteredWatches.map((watch) => (
+      {products.map((watch) => (
         <motion.ul
           key={watch.id}
           className="relative"
