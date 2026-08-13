@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import watches from "../../data.json";
 import Button from "../../UI/Button";
 import { useCart } from "../../store/CartContext";
 import { motion } from "framer-motion";
+import { useProducts } from "../../hooks/productHook";
 
 type ProductsProps = {
   filterType: string;
@@ -11,12 +11,13 @@ type ProductsProps = {
 export default function Products({ filterType }: ProductsProps) {
   const token = localStorage.getItem("token");
   const { addToCart } = useCart();
+  const products = useProducts();
 
   const filteredWatches = filterType
     ? filterType === "All"
-      ? watches
-      : watches.filter((watch) => watch.category === filterType)
-    : watches;
+      ? products
+      : products.filter((watch) => watch.category === filterType)
+    : products;
 
   return (
     <motion.div className="grid mt-6" viewport={{ once: true }}>

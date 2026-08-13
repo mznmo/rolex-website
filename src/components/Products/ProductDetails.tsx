@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import watches from "../../data.json";
 import Navbar from "../Navbars/Navbar";
 import Button from "../../UI/Button";
 import { useCart } from "../../store/CartContext";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useProducts } from "../../hooks/productHook";
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const filteredWatch = watches.find((watch) => watch.id === Number(id));
+  const filteredWatch = useProducts().find((watch) => watch.id === Number(id));
   const { addToCart } = useCart();
   const token = localStorage.getItem("token");
   const [quantity, setQuantity] = useState<number>(1);

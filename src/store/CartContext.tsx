@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import watches from "../data.json";
+import { useProducts } from "../hooks/productHook";
 
 type CartItem = {
   id: number;
@@ -32,7 +32,7 @@ type CartProviderProps = {
 
 export default function CartProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
-
+  const products = useProducts();
   const addToCart = (id: number, quantity = 1) => {
     const existingItem = cart.find((item) => item.id === id); //checking if product exists in cart
 
@@ -42,11 +42,11 @@ export default function CartProvider({ children }: CartProviderProps) {
         cart.map((item) =>
           item.id === id
             ? { ...item, quantity: item.quantity + quantity }
-            : item
-        )
+            : item,
+        ),
       );
     } else {
-      const newItem = watches.find((watch) => watch.id === id); //if product doesnt exist in cart
+      const newItem = products.find((watch) => watch.id === id); //if product doesnt exist in cart
       if (newItem) {
         setCart([...cart, { ...newItem, quantity }]); //load the cart + the new product and quantity
       }
@@ -64,8 +64,8 @@ export default function CartProvider({ children }: CartProviderProps) {
         setCart(
           cart.map(
             (item) =>
-              item.id === id ? { ...item, quantity: item.quantity - 1 } : item //else loading the item + decrementing the quantity
-          )
+              item.id === id ? { ...item, quantity: item.quantity - 1 } : item, //else loading the item + decrementing the quantity
+          ),
         );
       }
     }

@@ -1,13 +1,14 @@
 import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
-import watches from "../../data.json";
 import { useCart } from "../../store/CartContext";
 import { motion } from "framer-motion";
+import { useProducts } from "../../hooks/productHook";
 
 export default function Navbar() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const products = useProducts();
   const [showSearch, setShowSearch] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [search, setSearch] = useState<string>("");
@@ -37,8 +38,8 @@ export default function Navbar() {
     setSearch(event.target.value);
   }
 
-  const filteredWatches = watches.filter((watch) =>
-    watch.name.toLowerCase().includes(search.toLowerCase())
+  const filteredWatches = products.filter((watch) =>
+    watch.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -174,7 +175,7 @@ export default function Navbar() {
                 Rolex Watches
               </div>
               <div className="flex overflow-x-auto pb-4 w-full gap-4 snap-x snap-mandatory scrollbar-hide">
-                {watches.map((watch) => (
+                {products.map((watch) => (
                   <motion.div
                     key={watch.id}
                     className="flex-none w-64 sm:w-72 snap-center"

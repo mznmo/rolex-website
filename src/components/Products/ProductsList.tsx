@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import watches from "../../data.json";
 import Navbar from "../Navbars/Navbar";
 import { motion } from "framer-motion";
+import { useProducts } from "../../hooks/productHook";
 
 export default function ProductsList() {
+  const products = useProducts();
   return (
     <>
       <Navbar />
@@ -17,7 +18,7 @@ export default function ProductsList() {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 w-full max-w-7xl">
-          {watches.map((product) => (
+          {products.map((product) => (
             <Link
               to={`/watch/${product.id}`}
               key={product.id}
