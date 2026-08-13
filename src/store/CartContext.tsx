@@ -1,5 +1,4 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { useProducts } from "../hooks/productHook";
 
 type CartItem = {
   id: number;
@@ -32,47 +31,43 @@ type CartProviderProps = {
 
 export default function CartProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const products = useProducts();
-  const addToCart = (id: number, quantity = 1) => {
-    const existingItem = cart.find((item) => item.id === id); //checking if product exists in cart
+  const addToCart = async (id: number, quantity = 1) => {
+    const response = await fetch("http://localhost:3000/api/cart/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, quantity }),
+    });
+    const data = await response.json();
+    if (response.ok && Array.isArray(data)) {
+      setCart(data);
+    }
+  };
 
-    if (existingItem) {
-      //if product exists increment quantity
-      setCart(
-        cart.map((item) =>
-          item.id === id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item,
-        ),
-      );
+  const removeFromCart = async (id: number) => {
+    const response = await fetch("http://localhost:3000/api/cart/cart", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+    const data = await response.json();
+    if (response.ok && Array.isArray(data)) {
+      setCart(data);
+    }
+  };
+
+  const clearCart = async () => {
+    const response = await fetch("http://localhost:3000/api/cart/clear-cart", {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      setCart([]);
     } else {
-      const newItem = products.find((watch) => watch.id === id); //if product doesnt exist in cart
-      if (newItem) {
-        setCart([...cart, { ...newItem, quantity }]); //load the cart + the new product and quantity
-      }
+      throw new Error("Failed to clear cart");
     }
-  };
-
-  const removeFromCart = (id: number) => {
-    const cartItem = cart.find((item) => item.id === id);
-    if (cartItem) {
-      //if product is in cart
-      if (cartItem.quantity === 1) {
-        //if quantity is equal to 1
-        setCart(cart.filter((item) => item.id !== id)); //filtering the cart to remove the product
-      } else {
-        setCart(
-          cart.map(
-            (item) =>
-              item.id === id ? { ...item, quantity: item.quantity - 1 } : item, //else loading the item + decrementing the quantity
-          ),
-        );
-      }
-    }
-  };
-
-  const clearCart = () => {
-    setCart([]); //setting the cart to an empty array
   };
 
   return (
