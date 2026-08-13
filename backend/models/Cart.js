@@ -1,4 +1,6 @@
-const productSchema = new mongoose.Schema(
+const mongoose = require("mongoose");
+
+const cartSchema = new mongoose.Schema(
   {
     id: {
       type: Number,
